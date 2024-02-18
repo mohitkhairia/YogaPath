@@ -14,6 +14,7 @@ async function getClasses() {
 // Function to render classes to the UI
 function renderClasses(classes) {
   const appDiv = document.getElementById('app');
+  console.log(classes)
   const classesHTML = classes.map(classItem => `
     <div class="bg-gray-100 rounded p-4 mb-4">
       <h2 class="text-lg font-semibold">${classItem.title}</h2>
@@ -87,15 +88,19 @@ function goToLogin() {
 // Function to initialize the app on each page
 async function init() {
   // Check the current page and initialize accordingly
-  const currentPage = window.location.pathname;
-  if (currentPage === '/index.html' || currentPage === '/') {
+  const adress = window.location.pathname;
+  const currentPage = adress.substring(adress.lastIndexOf('/') + 1);
+  
+  console.log(currentPage)
+  if (currentPage === 'index.html' || currentPage === '/') {
+    console.log('Initializing app...');
     try {
       const classes = await getClasses();
       renderClasses(classes);
     } catch (error) {
       console.error('Error initializing app:', error);
     }
-  } else if (currentPage === '/login.html') {
+  } else if (currentPage === 'login.html') {
     // Add event listener to login form submission
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
